@@ -1,13 +1,5 @@
-import {createBrowserRouter, RouterProvider} from "react-router"
-import UserHomePage from "./pages/UserHomePage"
-import EngineerConsolePage from "./pages/EngineerConsolePage"
-
-const router= createBrowserRouter([
-  {path:"/",
-    element:<EngineerConsolePage />
-  },
-  {path:"/me", element:<UserHomePage />}
-])
+import { RouterProvider} from "react-router"
+import router from "./components/routes"
 function App(){
   return <RouterProvider router={router} />
 }
