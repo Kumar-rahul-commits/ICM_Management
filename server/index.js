@@ -11,11 +11,13 @@ require("./models/Activity")
 
 //routes exported
 const authRoutes = require("./routes/authRoutes")
+const ticketRoutes = require("./routes/ticketRoutes")
 const app= express();
 
 
 //route setup
 app.use("/api/auth",authRoutes)
+app.use("/api/tickets",authRoutes)
 
 
 
