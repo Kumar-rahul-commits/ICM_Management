@@ -1,5 +1,5 @@
 import {Link, useLocation} from "react-router"
-import { PATHS } from "../routes/paths"
+import { PATHS } from "../../routes/paths"
 function Sidebar() {
     const loc= useLocation();
     const workspaceLinks =[

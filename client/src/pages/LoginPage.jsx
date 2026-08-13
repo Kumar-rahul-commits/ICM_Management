@@ -15,12 +15,16 @@ function LoginPage(){
         setError("")
 
         try {
+            console.log("1. calling login")
             const data = await login(email,password)
-            localStroage.setItem("token",data.token)
+            console.log("2. data fetched", data)
+            localStorage.setItem("token",data.token)
             localStorage.setItem("user", JSON.stringify(data.user))
-
+         
+             console.log("1. localstorage complete login")
             //send engineers to the console, users to their home
-
+          console.log(data.user)
+          console.log("Rahul")
             if(data.user.role === "engineer"){
                 navigate(PATHS.ENGINEER_CONSOLE)
             }else{

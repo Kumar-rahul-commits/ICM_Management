@@ -7,13 +7,13 @@ require("./models/User")
 require("./models/Ticket")
 require("./models/Comment")
 require("./models/Activity")
+const app= express();
 
-
+app.use(cors())
+app.use(express.json());
 //routes exported
 const authRoutes = require("./routes/authRoutes")
 const ticketRoutes = require("./routes/ticketRoutes")
-const app= express();
-
 
 //route setup
 app.use("/api/auth",authRoutes)
@@ -23,8 +23,8 @@ app.use("/api/tickets",authRoutes)
 
 connectDB();
 
-app.use(cors())
-app.use(express.json());
+
+
 
 app.get("/",(req,res)=>{
     res.json({message: "Ticket API is Running"})

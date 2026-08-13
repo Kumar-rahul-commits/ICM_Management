@@ -60,7 +60,7 @@ async function login(req,res){
         const token = generateToken(user)
         res.json({
             token,
-            user:{id:user._id,nam:user.name,email:user.email,role:user.role}
+            user:{id:user._id,name:user.name,email:user.email,role:user.role}
         })
     }
     catch(error){

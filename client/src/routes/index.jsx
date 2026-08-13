@@ -4,6 +4,7 @@ import EngineerConsolePage from "../pages/EngineerConsolePage"
 import PlaceHolderPage from "../pages/PlaceHolderPage" 
 import LoginPage from "../pages/LoginPage"
 import { PATHS } from "./paths"
+import RegisterPage from "../pages/RegisterPage"
 const router= createBrowserRouter([
   {path:PATHS.ENGINEER_CONSOLE,   element:<EngineerConsolePage /> },
 
@@ -11,7 +12,10 @@ const router= createBrowserRouter([
 
   {path:PATHS.ALL_TICKETS,        element:<PlaceHolderPage title="tickets" />},
 
-  {path:PATHS.LOGIN,              element:<LoginPage />}
+  {path:PATHS.LOGIN,              element:<LoginPage />},
+
+  {path:PATHS.REGISTER,              element:<RegisterPage />}
 ])
+
 
 export default router
