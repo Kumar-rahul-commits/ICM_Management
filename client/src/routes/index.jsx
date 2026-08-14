@@ -8,12 +8,11 @@ import RegisterPage from "../pages/RegisterPage"
 import CreateTicketPage from "../pages/CreateTicketPage"
 import TicketDetailPage from "../pages/TicketDetailPage"
 import ProtecedRoute from "../components/ProtectedRoute"
-
+import PublicOnlyRoute from "../components/PublicOnlyRoutes"
 
 const router= createBrowserRouter([
-   {path:PATHS.LOGIN,              element:<LoginPage />},
-
-  {path:PATHS.REGISTER,              element:<RegisterPage />},
+  {path:PATHS.LOGIN,              element:(<PublicOnlyRoute> <LoginPage />  </PublicOnlyRoute>)},
+  {path:PATHS.REGISTER,              element:(<PublicOnlyRoute>  <RegisterPage /> </PublicOnlyRoute>)},
 
   {path:PATHS.ENGINEER_CONSOLE,   element: ( <ProtecedRoute>   <EngineerConsolePage />         </ProtecedRoute>) },
 
