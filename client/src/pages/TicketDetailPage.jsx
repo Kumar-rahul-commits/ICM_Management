@@ -3,7 +3,7 @@ import { useParams,useNavigate } from "react-router";
 import { getTicketById,updateTicket,assignTicket } from "../services/ticketService";
 import CommentThread from "../components/tickets/CommentThread";
 import Badge from "../components/common/Badge";
-
+import ActivityLog from "../components/tickets/ActivityLog";
 function TicketDetailPage(){
     const {id} = useParams()
     const navigate= useNavigate()
@@ -131,6 +131,7 @@ return (
 
 
       </div>
+      <ActivityLog ticketId={ticket._id}/>
       <CommentThread ticketId={ticket._id} />
     </div>
   )

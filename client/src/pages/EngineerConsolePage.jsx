@@ -20,7 +20,7 @@ function EngineerConsolePage() {
                 console.log("Tickets fetching started")
                 const data= await getTickets()
                 console.log("Tickets fetching completed",data)
-                setTickets(data)
+                setTickets(data.tickets)
             } catch (err) {
                  setError("Failed to load your requests")
             }

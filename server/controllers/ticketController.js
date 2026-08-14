@@ -2,6 +2,33 @@ const Ticket= require("../models/Ticket")
 const Activity = require("../models/Activity")
 const User = require("../models/User")
 //Post /api/tickets - any logged-in user can create 
+//const Activity = require("../models/Activity")   // make sure this is imported at top
+
+// GET /api/tickets/:id/activity
+async function getActivity(req, res) {
+  try {
+    const ticket = await Ticket.findById(req.params.id)
+    if (!ticket) {
+      return res.status(404).json({ message: "Ticket not found" })
+    }
+
+    // same view permission as the ticket: engineers any, users their own
+    const isOwner = String(ticket.createdBy) === String(req.user.id)
+    if (req.user.role !== "engineer" && !isOwner) {
+      return res.status(403).json({ message: "Not allowed to view this activity" })
+    }
+
+    const activity = await Activity.find({ ticket: req.params.id })
+      .populate("actor", "name role")
+      .sort({ createdAt: -1 })   // newest first
+
+    res.json(activity)
+  } catch (error) {
+    console.log("getActivity error:", error)
+    res.status(500).json({ message: "Server error", error: error.message })
+  }
+}
+
 
 async function createTicket(req,res){
     try{
@@ -33,18 +60,36 @@ async function createTicket(req,res){
 //GET /api/tickets - role-based: users see own, engineers see all
 async function getTickets(req,res){
     try{
-        let filter={}
+        const {search,status,priority,page=1,limit=10} = req.query
+        const filter={}
       
         if(req.user.role==="user"){
-            filter= {createdBy:req.user.id}
-        }
+            filter.createdBy=req.user.id}
         
-        const tickets =  await Ticket.find(filter).populate("createdBy","name email").populate("assignedTo","name email").sort({createdAt:-1})
-              console.log("getTickts backend call tickets found",tickets)
-        if(!tickets){
-            return res.status(404).json({message:"Ticket not found"})
+        if(status && status!=="all"){
+            filter.status = status
         }
-        res.json(tickets)
+           if(priority && priority!=="all"){
+            filter.priority = priority
+        }
+
+        if(search){
+            filter.title = {$regex:search,$options:"i"}
+        }
+             //pagination math
+             const pageNum=parseInt(page)
+             const limitNum= parseInt(limit)
+             const skip = (pageNum -1) * limitNum
+
+
+        const [tickets,total] = await Promise.all([
+            Ticket.find(filter).populate("createdBy","name eamil").populate("assignedTo","name email").sort({createdAt: -1}).skip(skip).limit(limitNum),
+            Ticket.countDocuments(filter)
+        ])
+        res.json({tickets,
+            total,page:pageNum,
+            totalPages:Math.ceil(total/limitNum)
+        })
     }
     catch(error){
         res.status(500).json({message:"Server error", error: error.message})
@@ -117,4 +162,4 @@ async function assignTicket(req,res){
     }
 }
 
-module.exports = {createTicket,getTickets, getTicketById ,updateTicket,assignTicket}
+module.exports = {createTicket,getTickets, getTicketById ,updateTicket,assignTicket,getActivity}

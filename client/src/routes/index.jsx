@@ -9,16 +9,17 @@ import CreateTicketPage from "../pages/CreateTicketPage"
 import TicketDetailPage from "../pages/TicketDetailPage"
 import ProtecedRoute from "../components/ProtectedRoute"
 import PublicOnlyRoute from "../components/PublicOnlyRoutes"
-
+import AllTicketsPage from "../pages/AllTicketsPage"
 const router= createBrowserRouter([
   {path:PATHS.LOGIN,              element:(<PublicOnlyRoute> <LoginPage />  </PublicOnlyRoute>)},
+
   {path:PATHS.REGISTER,              element:(<PublicOnlyRoute>  <RegisterPage /> </PublicOnlyRoute>)},
 
   {path:PATHS.ENGINEER_CONSOLE,   element: ( <ProtecedRoute>   <EngineerConsolePage />         </ProtecedRoute>) },
 
   {path:PATHS.USER_HOME,          element: ( <ProtecedRoute>    <UserHomePage />        </ProtecedRoute>) },
 
-  {path:PATHS.ALL_TICKETS,        element: ( <ProtecedRoute>     <PlaceHolderPage title="tickets" />       </ProtecedRoute>) },
+  {path:PATHS.ALL_TICKETS,        element: ( <ProtecedRoute>     <AllTicketsPage />      </ProtecedRoute>) },
 
  
 

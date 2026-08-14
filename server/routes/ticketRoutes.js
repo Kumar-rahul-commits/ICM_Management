@@ -5,7 +5,8 @@ const{
     getTickets,
     getTicketById,
     updateTicket,
-    assignTicket
+    assignTicket,
+    getActivity
 } = require("../controllers/ticketController")
 
 const {getComments, addComment} = require("../controllers/commentController")
@@ -23,6 +24,6 @@ router.patch("/:id/assign", authorize("engineer"), assignTicket)
 
 router.get("/:id/comments",getComments)
 router.post("/:id/comments",addComment)
-
+router.get("/:id/activity", getActivity)
 
 module.exports = router

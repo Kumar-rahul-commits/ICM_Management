@@ -7,8 +7,8 @@ export async function createTicket(ticketData){
     return response.data
 }
 
-export async function getTickets(){
-    const response = await api.get("/tickets")
+export async function getTickets(params={}){
+    const response = await api.get("/tickets",{params})
     return response.data
 }
 
@@ -27,3 +27,5 @@ export async function assignTicket(id){
     const response= await api.patch(`/tickets/${id}/assign`)
     return response.data
 }
+
+
