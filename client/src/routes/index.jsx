@@ -7,20 +7,25 @@ import { PATHS } from "./paths"
 import RegisterPage from "../pages/RegisterPage"
 import CreateTicketPage from "../pages/CreateTicketPage"
 import TicketDetailPage from "../pages/TicketDetailPage"
+import ProtecedRoute from "../components/ProtectedRoute"
+
+
 const router= createBrowserRouter([
-  {path:PATHS.ENGINEER_CONSOLE,   element:<EngineerConsolePage /> },
-
-  {path:PATHS.USER_HOME,          element:<UserHomePage />},
-
-  {path:PATHS.ALL_TICKETS,        element:<PlaceHolderPage title="tickets" />},
-
-  {path:PATHS.LOGIN,              element:<LoginPage />},
+   {path:PATHS.LOGIN,              element:<LoginPage />},
 
   {path:PATHS.REGISTER,              element:<RegisterPage />},
 
-  {path:PATHS.CREATE_TICKET,              element:<CreateTicketPage />},
+  {path:PATHS.ENGINEER_CONSOLE,   element: ( <ProtecedRoute>   <EngineerConsolePage />         </ProtecedRoute>) },
 
-  {path:PATHS.TICKET_DETAIL,              element:<TicketDetailPage />}
+  {path:PATHS.USER_HOME,          element: ( <ProtecedRoute>    <UserHomePage />        </ProtecedRoute>) },
+
+  {path:PATHS.ALL_TICKETS,        element: ( <ProtecedRoute>     <PlaceHolderPage title="tickets" />       </ProtecedRoute>) },
+
+ 
+
+  {path:PATHS.CREATE_TICKET,              element: ( <ProtecedRoute>   <CreateTicketPage />         </ProtecedRoute>) },
+
+  {path:PATHS.TICKET_DETAIL,              element: ( <ProtecedRoute>    <TicketDetailPage />        </ProtecedRoute>) }
 ])
 
 

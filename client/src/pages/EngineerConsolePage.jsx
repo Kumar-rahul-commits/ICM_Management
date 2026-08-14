@@ -6,13 +6,14 @@ import StatCardGrid from "../components/tickets/StatCardGrid"
 import WorkQueue from "../components/tickets/WorkQueue"
 import { stats,tickets } from "../utils/DummyTicket"
 import { getTickets } from "../services/ticketService"
+import { useAuth } from "../context/AuthContext"
 function EngineerConsolePage() {
 
 
   const [tickets,setTickets]= useState([])
        const [loading,setLoading]= useState(true)
        const [error,setError] = useState("")
-
+        const {user} = useAuth()
        useEffect(()=>{
         async function loadTickets(){
             try {
@@ -38,8 +39,8 @@ function EngineerConsolePage() {
       <TopBar />
       <div className="max-w-3xl">
         <PageHeader
-        title="Your queue, Ravi"
-        subtitle="6 tickets assigned . 2 need attention soon"
+        title={`Your queue, ${user.name || "Engineer"}`}
+        subtitle={`${tickets.length} tickets total`}
         />
         <StatCardGrid stats={stats} />
           {loading && <div className="text-sm text-text-muted">Loading... </div>}

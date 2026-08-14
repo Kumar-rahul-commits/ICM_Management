@@ -4,12 +4,24 @@ import NewRequestBanner from "../components/tickets/NewRequestBanner";
 import RequestList from "../components/tickets/RequestList";
 import { useState,useEffect } from "react";
 import {getTickets} from "../services/ticketService"
+import { useNavigate } from "react-router";
+import { useAuth } from "../context/AuthContext";
+import { PATHS } from "../routes/paths";
 
 function UserHomePage(){
            
        const [tickets,setTickets]= useState([])
        const [loading,setLoading]= useState(true)
        const [error,setError] = useState("")
+
+       const {user,logout} = useAuth()
+       const navigate = useNavigate()
+
+            function handleLogout(){
+                logout()
+                navigate(PATHS.LOGIN)
+            }
+
 
        useEffect(()=>{
         async function loadTickets(){
@@ -42,8 +54,17 @@ function UserHomePage(){
 
     return(
         <div className="max-w-2xl mx-auto">
+            <div className="flex items-center justify-between mb-6">
+                <span className="text-sm text-text-secondary">
+                    Signed in as {user?.name}
+                </span>
+                <button className="text-sm text-text-secondary hover:text-text-primary border border-border rounded-lg px-3 py-2 transition-colors"
+                onClick={handleLogout}>
+                    Logout
+                </button>
+            </div>
             <PageHeader
-            title="Hi Priya "
+            title={`Hi ${user?.name || "thee"} `}
             subtitle="Here's what's happening with your requests"
             />
             <StatCardGrid stats={stats} />

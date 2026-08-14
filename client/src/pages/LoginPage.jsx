@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { login } from "../services/authService";
+import { useAuth } from "../context/AuthContext";
 import {PATHS} from "../routes/paths"
 
 function LoginPage(){
@@ -9,17 +10,24 @@ function LoginPage(){
     const [error,setError] = useState("");
     const navigate = useNavigate();
 
-
+     const {login: authLogin} = useAuth()
     async function handleSubmit(e){
         e.preventDefault();
         setError("")
 
         try {
-            console.log("1. calling login")
+          
             const data = await login(email,password)
-            console.log("2. data fetched", data)
-            localStorage.setItem("token",data.token)
-            localStorage.setItem("user", JSON.stringify(data.user))
+            authLogin(data.user,data.token)
+
+            if(data.user.role =="engineer"){
+                navigate(PATHS.ENGINEER_CONSOLE)
+            }
+              else{
+                navigate(PATHS.USER_HOME)
+              }
+          //  localStorage.setItem("token",data.token)
+           // localStorage.setItem("user", JSON.stringify(data.user))
          
              console.log("1. localstorage complete login")
             //send engineers to the console, users to their home
