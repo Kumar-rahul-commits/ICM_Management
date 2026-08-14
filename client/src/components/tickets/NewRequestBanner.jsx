@@ -1,6 +1,8 @@
-import React from 'react'
+import { useNavigate } from "react-router"
+import { PATHS } from "../../routes/paths"
 
 function NewRequestBanner() {
+    const navigate = useNavigate()
   return (
     <div className="flex items-center justify-between gap-3 bg-surfacr-raised border border-border rounded-xl px-5 py-4 mb-5">
         <div>
@@ -12,7 +14,7 @@ function NewRequestBanner() {
             </div>
         </div>
 
-        <button className="flex items-center gap-1.5 bg-blue hover:bg-blue-700 text-white rounded-lg px-3 py-2 text-sm font-medium transition-colors shrink-0">
+        <button onClick={()=> navigate(PATHS.CREATE_TICKET)} className="flex items-center gap-1.5 bg-blue hover:bg-blue-700 text-white rounded-lg px-3 py-2 text-sm font-medium transition-colors shrink-0">
             <span>+ </span>
             <span>New Request</span>
         </button>

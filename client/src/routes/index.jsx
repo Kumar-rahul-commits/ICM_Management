@@ -5,6 +5,8 @@ import PlaceHolderPage from "../pages/PlaceHolderPage"
 import LoginPage from "../pages/LoginPage"
 import { PATHS } from "./paths"
 import RegisterPage from "../pages/RegisterPage"
+import CreateTicketPage from "../pages/CreateTicketPage"
+import TicketDetailPage from "../pages/TicketDetailPage"
 const router= createBrowserRouter([
   {path:PATHS.ENGINEER_CONSOLE,   element:<EngineerConsolePage /> },
 
@@ -14,7 +16,11 @@ const router= createBrowserRouter([
 
   {path:PATHS.LOGIN,              element:<LoginPage />},
 
-  {path:PATHS.REGISTER,              element:<RegisterPage />}
+  {path:PATHS.REGISTER,              element:<RegisterPage />},
+
+  {path:PATHS.CREATE_TICKET,              element:<CreateTicketPage />},
+
+  {path:PATHS.TICKET_DETAIL,              element:<TicketDetailPage />}
 ])
 
 

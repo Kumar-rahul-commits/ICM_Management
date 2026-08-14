@@ -3,5 +3,7 @@ export const PATHS ={
     USER_HOME:"/me",
     LOGIN:"/login",
     ALL_TICKETS:"/tickets",
-    REGISTER:"/register"
+    REGISTER:"/register",
+    CREATE_TICKET:"/tickets/new",
+    TICKET_DETAIL: "/tickets/:id"
 }

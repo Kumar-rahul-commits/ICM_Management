@@ -17,7 +17,7 @@ const ticketRoutes = require("./routes/ticketRoutes")
 
 //route setup
 app.use("/api/auth",authRoutes)
-app.use("/api/tickets",authRoutes)
+app.use("/api/tickets",ticketRoutes)
 
 
 
