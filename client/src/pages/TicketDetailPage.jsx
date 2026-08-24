@@ -4,6 +4,7 @@ import { getTicketById,updateTicket,assignTicket } from "../services/ticketServi
 import CommentThread from "../components/tickets/CommentThread";
 import Badge from "../components/common/Badge";
 import ActivityLog from "../components/tickets/ActivityLog";
+import { getSlaStatus } from "../utils/sla";
 function TicketDetailPage(){
     const {id} = useParams()
     const navigate= useNavigate()
@@ -14,6 +15,8 @@ function TicketDetailPage(){
 
     const user = JSON.parse(localStorage.getItem("user") || "{}")
     const isEngineer = user.role === "engineer"
+     
+   
 
  //assignment state
  const assignedId=ticket?.assignedTo?._id
@@ -37,6 +40,7 @@ function TicketDetailPage(){
         setLoading(false)
     }
 }
+
 
 async function handleStatusChange(newStatus){
     try {
@@ -63,7 +67,7 @@ async function handleAssign(){
 if(loading) return <div className="min-h-screen bg-surface p-8 text-text-muted">Loading...</div>
 if(error) return <div className="min-h-screen bg-surface p-8 text-red-500">{error}</div>
 if(!ticket) return null
-
+ const sla = getSlaStatus(ticket.slaDeadline, ticket.status)
 return (
     <div className="min-h-screen bg-surface p-8">
       <div className="max-w-2xl mx-auto">
@@ -126,6 +130,15 @@ return (
                 Mark resolved
               </button>
             </div>
+          )}
+
+          {sla && (
+            <div className={`text-sm mb-4 ${
+              sla.level === "danger" ? "text-red-500" :
+              sla.level === "warning" ? "text-amber-500" : "text-text-secondary"
+            }`}>
+              SLA: {sla.text}
+              </div>
           )}
         </div>
 

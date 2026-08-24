@@ -1,6 +1,7 @@
 const Ticket= require("../models/Ticket")
 const Activity = require("../models/Activity")
 const User = require("../models/User")
+const {calculateDeadline} = require("../config/sla")
 //Post /api/tickets - any logged-in user can create 
 //const Activity = require("../models/Activity")   // make sure this is imported at top
 
@@ -42,7 +43,8 @@ async function createTicket(req,res){
             title,
             description,
             priority: priority || "medium",
-            createdBy: req.user.id
+            createdBy: req.user.id,
+            slaDeadline: calculateDeadline(priority || "medium")
         })
        
          await Activity.create({

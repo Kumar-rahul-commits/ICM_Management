@@ -1,6 +1,16 @@
 import Badge from "../common/Badge";
 import { useNavigate } from "react-router";
+import { getSlaStatus } from "../../utils/sla";
 function TicketRow({ticket}){
+
+    //sla thing start
+    const sla= getSlaStatus(ticket.slaDeadline, ticket.status)
+    const slaColors = {
+          danger:"text-red-500",
+          warning:"text-amber-500",
+          normal:"text-text-secondary"
+    }
+    //sla thing ends
     const priorityConfig = {
         high: {color:"red",bar: "bg-red-500",sla:"text-red-500",label:"High"},
         medium: {color:"amber",bar: "bg-amber-500",sla:"text-amber-500",label:"Medium"},
@@ -32,6 +42,9 @@ function TicketRow({ticket}){
            <div className="flex flex-col items-end gap-1 shrink-0">
             <Badge label={priority.label } color = {priority.color} />
              <Badge label={status.label } color = {status.color} />
+             {sla && (<span className={`text-xs ${slaColors[sla.level]}`}>
+                     {sla.text}
+             </span>)}
             <span className={`text-xs ${priority.sla}`}> {ticket.slaLeft} left</span>
            </div>
         </div>
